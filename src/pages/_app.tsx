@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "src/lib/tailwind.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
@@ -14,14 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          /** Put your mantine theme overrid here */
-          colorScheme: "light",
-        }}
-      >
+      <MantineProvider withGlobalStyles withNormalizeCSS>
         <Component {...pageProps} />
       </MantineProvider>
     </>
