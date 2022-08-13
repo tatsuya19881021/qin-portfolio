@@ -9,7 +9,7 @@ import {
   useMantineColorScheme,
   Space,
 } from "@mantine/core";
-import { IconMoonStars, IconSun } from "@tabler/icons";
+import { IconMoon, IconSun } from "@tabler/icons";
 
 export const Header: FC = () => {
   // const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -21,12 +21,11 @@ export const Header: FC = () => {
       component="header"
       sx={(theme) => ({
         padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
-        borderBottom: `1px solid ${theme.colors.gray[2]}`,
         backgroundColor: theme.white,
       })}
     >
       <Group spacing="lg" noWrap>
-        <Title order={3}>T.Mae IT University</Title>
+        <Title order={3}>My Portfolio</Title>
         <Space w="xl" />
         <Text size="xl" weight={700} component={NextLink} href="/about">
           About
@@ -45,8 +44,9 @@ export const Header: FC = () => {
           color={dark ? "yello" : "blue"}
           // onClick={() => toggleColorScheme()}
           title="Toggle color scheme"
+          sx={{ "&:not(:disabled):active": { transform: "none" } }}
         >
-          {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+          {dark ? <IconSun size={18} /> : <IconMoon size={18} />}
         </ActionIcon>
       </Group>
     </Box>

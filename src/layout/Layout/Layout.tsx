@@ -21,7 +21,7 @@ export const Layout: CustomLayout = (page) => {
     >
       <Header />
       <Box py="xl" px="md">
-        {/* <LayoutErrorBoundary>{page}</LayoutErrorBoundary> */}
+        <LayoutErrorBoundary>{page}</LayoutErrorBoundary>
       </Box>
       <Footer />
     </Box>
@@ -33,7 +33,7 @@ const Footer: FC = () => {
     <Container>
       <Divider />
       <Center mt={16}>
-        <Text>© ️2022 T.Mae IT University</Text>
+        <Text>© ️2022 T.Mae</Text>
       </Center>
     </Container>
   );
