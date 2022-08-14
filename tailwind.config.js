@@ -173,6 +173,9 @@ const mantineColors = {
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   important: "#__next",
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     screens: {
       xs: "576px",
