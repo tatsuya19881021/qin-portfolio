@@ -1,9 +1,15 @@
 import "src/lib/tailwind.css";
-import type { AppProps } from "next/app";
+import type { AppProps, CustomAppPage } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 
-function MyApp({ Component, pageProps }: AppProps) {
+const App: CustomAppPage = ({ Component, pageProps }) => {
+  const getLayout =
+    Component.getLayout ||
+    ((page) => {
+      return page;
+    });
+
   return (
     <>
       <Head>
@@ -15,10 +21,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <MantineProvider withGlobalStyles withNormalizeCSS>
-        <Component {...pageProps} />
+        {getLayout(<Component {...pageProps} />)}
       </MantineProvider>
     </>
   );
-}
+};
 
-export default MyApp;
+export default App;

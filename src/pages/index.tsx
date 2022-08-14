@@ -1,26 +1,34 @@
-import type { NextPage } from "next";
-import { useMediaQuery, useViewportSize } from "src/lib/mantine";
+import { Box, Button, Center } from "@mantine/core";
+import type { CustomNextPage } from "next";
+import { Layout } from "src/layout";
+import { TitleSection } from "src/component/Home";
+import { BlogSection } from "src/component/Blog/BlogSection";
+import { PortfolioSection } from "src/component/Portfolio";
 
-const Home: NextPage = () => {
-  const { width } = useViewportSize();
-  const largerThanXs = useMediaQuery("xs");
-  const largerThanSm = useMediaQuery("sm");
-  const largerThanMd = useMediaQuery("md");
-  const largerThanLg = useMediaQuery("lg");
-  const largerThanXl = useMediaQuery("xl");
-
+const Home: CustomNextPage = () => {
   return (
-    <div className="p-20">
-      <div className="bg-fuchsia-200 xs:bg-red-200 sm:bg-amber-200 md:bg-lime-200 lg:bg-emerald-200 xl:bg-cyan-200">
-        <div>{`width: ${width}`}</div>
-        <div>{`largerThanXs: ${largerThanXs}`}</div>
-        <div>{`largerThanSm: ${largerThanSm}`}</div>
-        <div>{`largerThanMd: ${largerThanMd}`}</div>
-        <div>{`largerThanLg: ${largerThanLg}`}</div>
-        <div>{`largerThanXl: ${largerThanXl}`}</div>
-      </div>
-    </div>
+    <Box component="main">
+      <TitleSection />
+      <Box mt={16}>
+        <BlogSection />
+        <Center mt="lg">
+          <Button color="dark" className="rounded-full">
+            View All
+          </Button>
+        </Center>
+      </Box>
+      <Box mt={16}>
+        <PortfolioSection />
+        <Center mt="lg">
+          <Button color="dark" className="rounded-full">
+            View All
+          </Button>
+        </Center>
+      </Box>
+    </Box>
   );
 };
+
+Home.getLayout = Layout;
 
 export default Home;
