@@ -1,46 +1,16 @@
-import {
-  Box,
-  Center,
-  Divider,
-  Loader,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
-import { NextLink } from "@mantine/next";
+import { Box, Center, Loader, Space } from "@mantine/core";
 import type { CustomNextPage } from "next";
+import { BlogSection } from "src/component/Blog/BlogSection";
 import { Layout } from "src/layout";
-
-const articles = [...Array(10)].map((_, index) => {
-  return {
-    id: index,
-    header: `This is a header ${index}`,
-    body: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
-    date: "2022.07.11",
-  };
-});
 
 const Blog: CustomNextPage = () => {
   return (
     <Box component="main">
-      <Stack spacing="lg">
-        <Title order={1}>Blog</Title>
-        <Divider />
-        {articles.map((article) => (
-          <Box
-            key={article.id}
-            component={NextLink}
-            href={`/blog/detail/${article.id}`}
-          >
-            <Title order={2}>{article.header}</Title>
-            <Text>{article.body}</Text>
-            <Text>{article.date}</Text>
-          </Box>
-        ))}
-        <Center>
-          <Loader color="pink.6" />
-        </Center>
-      </Stack>
+      <BlogSection />
+      <Space h="lg" />
+      <Center>
+        <Loader color="pink.6" />
+      </Center>
     </Box>
   );
 };
