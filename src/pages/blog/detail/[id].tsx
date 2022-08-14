@@ -7,8 +7,8 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { NextLink } from "@mantine/next";
 import type { CustomNextPage } from "next";
+import { useRouter } from "next/router";
 import { Layout } from "src/layout";
 
 const articles = [...Array(10)].map((_, index) => {
@@ -20,31 +20,24 @@ const articles = [...Array(10)].map((_, index) => {
   };
 });
 
-const Blog: CustomNextPage = () => {
+const BlogDetail: CustomNextPage = () => {
+  const router = useRouter();
+  const id = Number(router.query.id);
+
   return (
     <Box component="main">
       <Stack spacing="lg">
-        <Title order={1}>Blog</Title>
+        <Title order={1}>{articles[id].header}</Title>
         <Divider />
-        {articles.map((article) => (
-          <Box
-            key={article.id}
-            component={NextLink}
-            href={`/blog/detail/${article.id}`}
-          >
-            <Title order={2}>{article.header}</Title>
-            <Text>{article.body}</Text>
-            <Text>{article.date}</Text>
-          </Box>
-        ))}
-        <Center>
-          <Loader color="pink.6" />
-        </Center>
+        <Box>
+          <Text>{articles[id].date}</Text>
+          <Text>{articles[id].body}</Text>
+        </Box>
       </Stack>
     </Box>
   );
 };
 
-Blog.getLayout = Layout;
+BlogDetail.getLayout = Layout;
 
-export default Blog;
+export default BlogDetail;
