@@ -9,7 +9,7 @@ import {
   useMantineColorScheme,
   Space,
 } from "@mantine/core";
-import { IconMoon, IconSun } from "@tabler/icons";
+import { TbMoon, TbSun } from "react-icons/tb";
 
 export const Header: FC = () => {
   // const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -40,13 +40,13 @@ export const Header: FC = () => {
           Contact
         </Text>
         <ActionIcon
-          variant="outline"
+          variant="default"
           color={dark ? "yello" : "blue"}
           // onClick={() => toggleColorScheme()}
           title="Toggle color scheme"
           sx={{ "&:not(:disabled):active": { transform: "none" } }}
         >
-          {dark ? <IconSun size={18} /> : <IconMoon size={18} />}
+          {dark ? <TbSun size={18} /> : <TbMoon size={18} />}
         </ActionIcon>
       </Group>
     </Box>
