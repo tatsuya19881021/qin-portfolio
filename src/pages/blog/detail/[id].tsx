@@ -22,7 +22,7 @@ const articles = [...Array(10)].map((_, index) => {
 
 const BlogDetail: CustomNextPage = () => {
   const router = useRouter();
-  const id = Number(router.query.id);
+  const id = router.query.id ? Number(router.query.id) : 0;
 
   return (
     <Box component="main">
