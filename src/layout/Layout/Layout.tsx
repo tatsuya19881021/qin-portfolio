@@ -2,8 +2,7 @@ import { FC } from "react";
 import type { CustomLayout } from "next";
 import dynamic from "next/dynamic";
 import { Box, Center, Container, Divider, Text } from "@mantine/core";
-
-import { LayoutErrorBoundary } from "../LayoutErrorBoundary";
+import { LayoutErrorBoundary } from "src/layout/LayoutErrorBoundary";
 
 const Header = dynamic(async () => {
   const { Header } = await import("./Header");

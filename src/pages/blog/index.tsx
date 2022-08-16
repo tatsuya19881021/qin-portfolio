@@ -6,7 +6,7 @@ import { Layout } from "src/layout";
 const Blog: CustomNextPage = () => {
   return (
     <Box component="main">
-      <BlogSection />
+      <BlogSection displayRow={10} />
       <Space h="lg" />
       <Center>
         <Loader color="pink.6" />
