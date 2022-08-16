@@ -1,12 +1,4 @@
-import {
-  Box,
-  Center,
-  Divider,
-  Loader,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Box, Divider, Stack, Text, Title } from "@mantine/core";
 import type { CustomNextPage } from "next";
 import { useRouter } from "next/router";
 import { Layout } from "src/layout";

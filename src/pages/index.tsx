@@ -12,7 +12,7 @@ const Home: CustomNextPage = () => {
     <Box component="main">
       <TitleSection />
       <Box mt={16}>
-        <BlogSection />
+        <BlogSection displayRow={5} />
         <Center mt="lg">
           <Button color="dark" className="rounded-full">
             View All
