@@ -1,7 +1,7 @@
 import { FC } from "react";
 import type { CustomLayout } from "next";
 import dynamic from "next/dynamic";
-import { Box, Center, Container, Divider, Text } from "@mantine/core";
+import { Box, Center, Divider, Text } from "@mantine/core";
 import { LayoutErrorBoundary } from "src/layout/LayoutErrorBoundary";
 
 const Header = dynamic(async () => {
@@ -11,15 +11,9 @@ const Header = dynamic(async () => {
 
 export const Layout: CustomLayout = (page) => {
   return (
-    <Box
-    // padding="md"
-    // styles={(theme) => ({
-    //   body: { minHeight: "100vh" },
-    //   main: { padding: 0, backgroundColor: theme.colors.gray[0] },
-    // })}
-    >
+    <Box className="flex flex-col h-screen">
       <Header />
-      <Box py="xl" px="md">
+      <Box py="xl" px="md" className="flex-1">
         <LayoutErrorBoundary>{page}</LayoutErrorBoundary>
       </Box>
       <Footer />
@@ -29,11 +23,11 @@ export const Layout: CustomLayout = (page) => {
 
 const Footer: FC = () => {
   return (
-    <Container>
+    <Box>
       <Divider />
       <Center mt={16}>
-        <Text>© ️2022 T.Mae</Text>
+        <Text>&copy;2022 T.Mae</Text>
       </Center>
-    </Container>
+    </Box>
   );
 };
