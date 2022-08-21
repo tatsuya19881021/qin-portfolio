@@ -1,5 +1,7 @@
 import {
   Avatar,
+  Button,
+  Center,
   Divider,
   Grid,
   Group,
@@ -8,6 +10,7 @@ import {
   Title,
 } from "@mantine/core";
 import { FC } from "react";
+import { useMediaQuery } from "src/lib/mantine";
 
 const articles = [...Array(3)].map((_, index) => {
   return {
@@ -22,8 +25,10 @@ const articles = [...Array(3)].map((_, index) => {
 });
 
 export const TwitterSection: FC = () => {
+  const largerThanSm = useMediaQuery("sm");
+
   return (
-    <Stack spacing="lg">
+    <Stack spacing="lg" className={largerThanSm ? "w-1/2" : "w-full"}>
       <Title order={1}>Twitter</Title>
       <Divider />
       {articles.map((article) => (
@@ -49,6 +54,11 @@ export const TwitterSection: FC = () => {
           </Grid.Col>
         </Grid>
       ))}
+      <Center mt="lg">
+        <Button color="dark" className="rounded-full">
+          View on Twitter
+        </Button>
+      </Center>
     </Stack>
   );
 };
