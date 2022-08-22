@@ -6,8 +6,11 @@ import { BlogSection } from "src/component/Blog/BlogSection";
 import { PortfolioSection } from "src/component/Portfolio";
 import { GithubSection } from "src/component/Github";
 import { TwitterSection } from "src/component/Twitter";
+import { useMediaQuery } from "src/lib/mantine";
 
 const Home: CustomNextPage = () => {
+  const largerThanSm = useMediaQuery("sm");
+
   return (
     <Box component="main">
       <TitleSection />
@@ -27,24 +30,13 @@ const Home: CustomNextPage = () => {
           </Button>
         </Center>
       </Box>
-      <Group mt={16}>
-        <Box className="max-w-[50%]">
-          <GithubSection />
-          <Center mt="lg">
-            <Button color="dark" className="rounded-full">
-              View on GitHub
-            </Button>
-          </Center>
-        </Box>
-        <Box className="max-w-[50%]">
-          <TwitterSection />
-          <Center mt="lg">
-            <Button color="dark" className="rounded-full">
-              View on Twitter
-            </Button>
-          </Center>
-        </Box>
-      </Group>
+      <Box
+        mt={16}
+        className={largerThanSm ? "flex justify-between space-x-10" : undefined}
+      >
+        <GithubSection />
+        <TwitterSection />
+      </Box>
     </Box>
   );
 };

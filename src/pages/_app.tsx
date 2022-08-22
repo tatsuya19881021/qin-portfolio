@@ -1,5 +1,5 @@
 import "src/lib/tailwind.css";
-import type { AppProps, CustomAppPage } from "next/app";
+import type { CustomAppPage } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 
