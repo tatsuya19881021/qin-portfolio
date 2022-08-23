@@ -4,31 +4,28 @@ import { FC } from "react";
 
 type Props = {
   displayRow: number;
+  blogs: {
+    id: string;
+    title: string;
+    content: string;
+    updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+  }[];
 };
 
-export const BlogSection: FC<Props> = ({ displayRow }) => {
-  const articles = [...Array(displayRow)].map((_, index) => {
-    return {
-      id: index,
-      header: `This is a header ${index}`,
-      body: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
-      date: "2022.07.11",
-    };
-  });
-
+export const BlogSection: FC<Props> = ({ displayRow, blogs }) => {
   return (
     <Stack spacing="lg">
       <Title order={1}>Blog</Title>
       <Divider />
-      {articles.map((article) => (
+      {blogs?.map((blog) => (
         <Box
-          key={article.id}
+          key={blog.id}
           component={NextLink}
-          href={`/blog/detail/${article.id}`}
+          href={`/blog/detail/${blog.id}`}
         >
-          <Title order={2}>{article.header}</Title>
-          <Text>{article.body}</Text>
-          <Text>{article.date}</Text>
+          <Title order={2}>{blog.title}</Title>
+          <Text>{blog.content}</Text>
+          <Text>{blog.updatedAt}</Text>
         </Box>
       ))}
     </Stack>

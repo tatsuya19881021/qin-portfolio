@@ -6,9 +6,10 @@ import { Layout } from "src/layout";
 const articles = [...Array(10)].map((_, index) => {
   return {
     id: index,
-    header: `This is a header ${index}`,
-    body: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
-    date: "2022.07.11",
+    title: `This is a header ${index}`,
+    content:
+      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
+    updatedAt: "2022.07.11",
   };
 });
 
@@ -19,11 +20,11 @@ const BlogDetail: CustomNextPage = () => {
   return (
     <Box component="main">
       <Stack spacing="lg">
-        <Title order={1}>{articles[id].header}</Title>
+        <Title order={1}>{articles[id].title}</Title>
         <Divider />
         <Box>
-          <Text>{articles[id].date}</Text>
-          <Text>{articles[id].body}</Text>
+          <Text>{articles[id].updatedAt}</Text>
+          <Text>{articles[id].content}</Text>
         </Box>
       </Stack>
     </Box>
