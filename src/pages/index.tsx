@@ -1,4 +1,4 @@
-import { Box, Button, Center, Group } from "@mantine/core";
+import { Box, Button, Center } from "@mantine/core";
 import type { CustomNextPage } from "next";
 import { Layout } from "src/layout";
 import { TitleSection } from "src/component/Home";
@@ -7,15 +7,25 @@ import { PortfolioSection } from "src/component/Portfolio";
 import { GithubSection } from "src/component/Github";
 import { TwitterSection } from "src/component/Twitter";
 import { useMediaQuery } from "src/lib/mantine";
+import { client } from "src/lib/microcms/client";
 
-const Home: CustomNextPage = () => {
+type Props = {
+  blogs: {
+    id: string;
+    title: string;
+    content: string;
+    updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+  }[];
+};
+
+const Home: CustomNextPage<Props> = ({ blogs }) => {
   const largerThanSm = useMediaQuery("sm");
 
   return (
     <Box component="main">
       <TitleSection />
       <Box mt={16}>
-        <BlogSection displayRow={5} />
+        <BlogSection displayRow={5} blogs={blogs} />
         <Center mt="lg">
           <Button color="dark" className="rounded-full">
             View All
@@ -44,3 +54,17 @@ const Home: CustomNextPage = () => {
 Home.getLayout = Layout;
 
 export default Home;
+
+export const getStaticProps = async () => {
+  const data = await client.get({
+    endpoint: "blogs",
+  });
+
+  console.log(data);
+
+  return {
+    props: {
+      blogs: data.contents,
+    },
+  };
+};

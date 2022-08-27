@@ -1,29 +1,25 @@
 import { Box, Divider, Stack, Text, Title } from "@mantine/core";
 import type { CustomNextPage } from "next";
-import { useRouter } from "next/router";
 import { Layout } from "src/layout";
+import { client } from "src/lib/microcms/client";
 
-const articles = [...Array(10)].map((_, index) => {
-  return {
-    id: index,
-    header: `This is a header ${index}`,
-    body: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
-    date: "2022.07.11",
+type Props = {
+  blog: {
+    title: string;
+    content: string;
+    updatedAt: string;
   };
-});
+};
 
-const BlogDetail: CustomNextPage = () => {
-  const router = useRouter();
-  const id = router.query.id ? Number(router.query.id) : 0;
-
+const BlogDetail: CustomNextPage<Props> = ({ blog }) => {
   return (
     <Box component="main">
       <Stack spacing="lg">
-        <Title order={1}>{articles[id].header}</Title>
+        <Title order={1}>{blog.title}</Title>
         <Divider />
         <Box>
-          <Text>{articles[id].date}</Text>
-          <Text>{articles[id].body}</Text>
+          <Text>{blog.updatedAt}</Text>
+          <Text dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
         </Box>
       </Stack>
     </Box>
@@ -33,3 +29,23 @@ const BlogDetail: CustomNextPage = () => {
 BlogDetail.getLayout = Layout;
 
 export default BlogDetail;
+
+export const getStaticPaths = async () => {
+  const data = await client.get({ endpoint: "blogs" });
+
+  const paths = data.contents.map(
+    (content: { id: string }) => `/blog/detail/${content.id}`
+  );
+  return { paths, fallback: false };
+};
+
+export const getStaticProps = async (context: { params: { id: string } }) => {
+  const id = context.params.id;
+  const data = await client.get({ endpoint: "blogs", contentId: id });
+
+  return {
+    props: {
+      blog: data,
+    },
+  };
+};
