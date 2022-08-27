@@ -2,6 +2,7 @@ import { Box, Center, Loader, Space } from "@mantine/core";
 import type { CustomNextPage } from "next";
 import { BlogSection } from "src/component/Blog/BlogSection";
 import { Layout } from "src/layout";
+import { client } from "src/lib/microcms/client";
 
 type Props = {
   blogs: {
@@ -27,3 +28,17 @@ const Blog: CustomNextPage<Props> = ({ blogs }) => {
 Blog.getLayout = Layout;
 
 export default Blog;
+
+export const getStaticProps = async () => {
+  const data = await client.get({
+    endpoint: "blogs",
+  });
+
+  console.log(data);
+
+  return {
+    props: {
+      blogs: data.contents,
+    },
+  };
+};

@@ -24,7 +24,7 @@ export const BlogSection: FC<Props> = ({ displayRow, blogs }) => {
           href={`/blog/detail/${blog.id}`}
         >
           <Title order={2}>{blog.title}</Title>
-          <Text>{blog.content}</Text>
+          <Text dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
           <Text>{blog.updatedAt}</Text>
         </Box>
       ))}
