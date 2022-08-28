@@ -13,7 +13,20 @@ const articles = [...Array(6)].map(() => {
   };
 });
 
-export const PortfolioSection: FC = () => {
+type Props = {
+  portfolios: {
+    id: string;
+    title: string;
+    content: string;
+    createdAt: string /* TODO: 日付へのフォーマット対応 */;
+    updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+    eyecatch: {
+      url: string;
+    };
+  }[];
+};
+
+export const PortfolioSection: FC<Props> = ({ portfolios }) => {
   const largerThanXs = useMediaQuery("xs");
 
   return (
@@ -21,18 +34,20 @@ export const PortfolioSection: FC = () => {
       <Title order={1}>Portfolio</Title>
       <Divider />
       <Grid justify="space-between">
-        {articles.map((article, index) => (
+        {portfolios?.map((portfolio, index) => (
           <Grid.Col xs={12} sm={6} md={6} lg={4} key={index}>
             <Stack spacing="lg">
               <Image
                 width={largerThanXs ? 314 : 314 * 1.5}
                 height={largerThanXs ? 184 : 184 * 1.5}
-                src={article.thumbnail}
+                src={portfolio.eyecatch.url}
                 alt="Home Page Image"
               />
-              <Title order={2}>{article.title}</Title>
-              <Text>{article.description}</Text>
-              <Text>{article.creationTime}</Text>
+              <Title order={2}>{portfolio.title}</Title>
+              <Text>{portfolio.content}</Text>
+              <Text>
+                {portfolio.createdAt} - {portfolio.updatedAt}
+              </Text>
             </Stack>
           </Grid.Col>
         ))}

@@ -2,11 +2,25 @@ import { Box } from "@mantine/core";
 import type { CustomNextPage } from "next";
 import { PortfolioSection } from "src/component/Portfolio";
 import { Layout } from "src/layout";
+import { client } from "src/lib/microcms/client";
 
-const Portfolio: CustomNextPage = () => {
+type Props = {
+  portfolios: {
+    id: string;
+    title: string;
+    content: string;
+    createdAt: string /* TODO: 日付へのフォーマット対応 */;
+    updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+    eyecatch: {
+      url: string;
+    };
+  }[];
+};
+
+const Portfolio: CustomNextPage<Props> = ({ portfolios }) => {
   return (
     <Box component="main">
-      <PortfolioSection />
+      <PortfolioSection portfolios={portfolios} />
     </Box>
   );
 };
@@ -14,3 +28,17 @@ const Portfolio: CustomNextPage = () => {
 Portfolio.getLayout = Layout;
 
 export default Portfolio;
+
+export const getStaticProps = async () => {
+  const data = await client.get({
+    endpoint: "blogs",
+  });
+
+  console.log(data);
+
+  return {
+    props: {
+      portfolios: data.contents,
+    },
+  };
+};

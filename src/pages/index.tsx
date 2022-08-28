@@ -14,7 +14,11 @@ type Props = {
     id: string;
     title: string;
     content: string;
+    createdAt: string /* TODO: 日付へのフォーマット対応 */;
     updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+    eyecatch: {
+      url: string;
+    };
   }[];
 };
 
@@ -33,7 +37,7 @@ const Home: CustomNextPage<Props> = ({ blogs }) => {
         </Center>
       </Box>
       <Box mt={16}>
-        <PortfolioSection />
+        <PortfolioSection portfolios={blogs} />
         <Center mt="lg">
           <Button color="dark" className="rounded-full">
             View All
