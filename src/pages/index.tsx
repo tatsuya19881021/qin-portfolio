@@ -14,11 +14,22 @@ type Props = {
     id: string;
     title: string;
     content: string;
+    createdAt: string /* TODO: 日付へのフォーマット対応 */;
     updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+  }[];
+  portfolios: {
+    id: string;
+    title: string;
+    content: string;
+    createdAt: string /* TODO: 日付へのフォーマット対応 */;
+    updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+    eyecatch: {
+      url: string;
+    };
   }[];
 };
 
-const Home: CustomNextPage<Props> = ({ blogs }) => {
+const Home: CustomNextPage<Props> = ({ blogs, portfolios }) => {
   const largerThanSm = useMediaQuery("sm");
 
   return (
@@ -33,7 +44,7 @@ const Home: CustomNextPage<Props> = ({ blogs }) => {
         </Center>
       </Box>
       <Box mt={16}>
-        <PortfolioSection />
+        <PortfolioSection portfolios={portfolios} />
         <Center mt="lg">
           <Button color="dark" className="rounded-full">
             View All
@@ -56,15 +67,17 @@ Home.getLayout = Layout;
 export default Home;
 
 export const getStaticProps = async () => {
-  const data = await client.get({
+  const blog = await client.get({
     endpoint: "blogs",
   });
-
-  console.log(data);
+  const portfolio = await client.get({
+    endpoint: "portfolios",
+  });
 
   return {
     props: {
-      blogs: data.contents,
+      blogs: blog.contents,
+      portfolios: portfolio.contents,
     },
   };
 };

@@ -4,12 +4,12 @@ import {
   Center,
   Divider,
   Stack,
-  Text,
   Textarea,
   TextInput,
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import axios from "axios";
 import type { CustomNextPage } from "next";
 import { Layout } from "src/layout";
 
@@ -22,13 +22,29 @@ const Contact: CustomNextPage = () => {
     },
   });
 
+  const handleSubmit = async (values: typeof form.values) => {
+    try {
+      await axios
+        .post("/api/contact", values, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Box component="main">
       <Stack spacing="lg">
         <Title order={1}>Contact</Title>
         <Divider />
 
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <form onSubmit={form.onSubmit(handleSubmit)}>
           <TextInput
             label="Email"
             placeholder="your@email.com"
