@@ -11,6 +11,7 @@ import {
 import { useForm } from "@mantine/form";
 import axios from "axios";
 import type { CustomNextPage } from "next";
+import toast, { Toaster } from "react-hot-toast";
 import { Layout } from "src/layout";
 
 const Contact: CustomNextPage = () => {
@@ -20,20 +21,30 @@ const Contact: CustomNextPage = () => {
       name: "",
       message: "",
     },
+
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+    },
   });
 
   const handleSubmit = async (values: typeof form.values) => {
     try {
-      await axios
+      const sendMessage = axios
         .post("/api/contact", values, {
           headers: {
             "Content-Type": "application/json",
           },
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          form.reset();
         });
+      toast.promise(sendMessage, {
+        loading: "メッセージ送信中。",
+        success: "メッセージの送信が完了しました！",
+        error: "メッセージの送信に失敗しました。",
+      });
     } catch (err) {
+      toast.error("メッセージの送信に失敗しました。");
       console.log(err);
     }
   };
@@ -70,6 +81,7 @@ const Contact: CustomNextPage = () => {
           </Center>
         </form>
       </Stack>
+      <Toaster />
     </Box>
   );
 };
