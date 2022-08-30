@@ -9,10 +9,11 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { showNotification, updateNotification } from "@mantine/notifications";
 import axios from "axios";
 import type { CustomNextPage } from "next";
-import toast, { Toaster } from "react-hot-toast";
 import { Layout } from "src/layout";
+import { TbCheck, TbX } from "react-icons/tb";
 
 const Contact: CustomNextPage = () => {
   const form = useForm({
@@ -29,22 +30,39 @@ const Contact: CustomNextPage = () => {
 
   const handleSubmit = async (values: typeof form.values) => {
     try {
-      const sendMessage = axios
-        .post("/api/contact", values, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then(() => {
-          form.reset();
-        });
-      toast.promise(sendMessage, {
-        loading: "メッセージ送信中。",
-        success: "メッセージの送信が完了しました！",
-        error: "メッセージの送信に失敗しました。",
+      showNotification({
+        id: "send-message",
+        loading: true,
+        title: "送信中",
+        message: "メッセージを送信しています。",
+        autoClose: false,
+        disallowClose: true,
+      });
+      await axios.post("/api/contact", values, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      form.reset();
+      updateNotification({
+        id: "send-message",
+        color: "teal",
+        title: "送信完了",
+        message: "メッセージの送信が完了しました！",
+        icon: <TbCheck size={16} />,
+        autoClose: 5000,
       });
     } catch (err) {
-      toast.error("メッセージの送信に失敗しました。");
+      updateNotification({
+        id: "send-message",
+        loading: false,
+        color: "red",
+        title: "送信失敗",
+        message: "メッセージの送信が失敗しました。",
+        icon: <TbX size={16} />,
+        autoClose: 5000,
+        disallowClose: true,
+      });
       console.log(err);
     }
   };
@@ -81,7 +99,6 @@ const Contact: CustomNextPage = () => {
           </Center>
         </form>
       </Stack>
-      <Toaster />
     </Box>
   );
 };

@@ -2,6 +2,7 @@ import "src/lib/tailwind.css";
 import type { CustomAppPage } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 
 const App: CustomAppPage = ({ Component, pageProps }) => {
   const getLayout =
@@ -21,7 +22,9 @@ const App: CustomAppPage = ({ Component, pageProps }) => {
       </Head>
 
       <MantineProvider withGlobalStyles withNormalizeCSS>
-        {getLayout(<Component {...pageProps} />)}
+        <NotificationsProvider position="top-center">
+          {getLayout(<Component {...pageProps} />)}
+        </NotificationsProvider>
       </MantineProvider>
     </>
   );
