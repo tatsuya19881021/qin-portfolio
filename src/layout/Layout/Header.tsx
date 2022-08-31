@@ -25,7 +25,9 @@ export const Header: FC = () => {
       })}
     >
       <Group spacing="lg" noWrap>
-        <Title order={3}>My Portfolio</Title>
+        <Text size="xl" weight={700} component={NextLink} href="/">
+          My Portfolio
+        </Text>
         <Space w="xl" />
         <Text size="xl" weight={700} component={NextLink} href="/about">
           About
