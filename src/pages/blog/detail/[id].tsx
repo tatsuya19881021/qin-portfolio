@@ -1,4 +1,5 @@
 import { Box, Divider, Stack, Text, Title } from "@mantine/core";
+import dayjs from "dayjs";
 import type { CustomNextPage } from "next";
 import { Layout } from "src/layout";
 import { client } from "src/lib/microcms/client";
@@ -18,7 +19,7 @@ const BlogDetail: CustomNextPage<Props> = ({ blog }) => {
         <Title order={1}>{blog.title}</Title>
         <Divider />
         <Box>
-          <Text>{blog.updatedAt}</Text>
+          <Text>{dayjs(blog.updatedAt).format("YYYY.MM.DD")}</Text>
           <Text dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
         </Box>
       </Stack>
