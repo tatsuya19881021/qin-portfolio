@@ -9,9 +9,11 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { showNotification, updateNotification } from "@mantine/notifications";
 import axios from "axios";
 import type { CustomNextPage } from "next";
 import { Layout } from "src/layout";
+import { TbCheck, TbX } from "react-icons/tb";
 
 const Contact: CustomNextPage = () => {
   const form = useForm({
@@ -20,20 +22,47 @@ const Contact: CustomNextPage = () => {
       name: "",
       message: "",
     },
+
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+    },
   });
 
   const handleSubmit = async (values: typeof form.values) => {
     try {
-      await axios
-        .post("/api/contact", values, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((res) => {
-          console.log(res);
-        });
+      showNotification({
+        id: "send-message",
+        loading: true,
+        title: "送信中",
+        message: "メッセージを送信しています。",
+        autoClose: false,
+        disallowClose: true,
+      });
+      await axios.post("/api/contact", values, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      form.reset();
+      updateNotification({
+        id: "send-message",
+        color: "teal",
+        title: "送信完了",
+        message: "メッセージの送信が完了しました！",
+        icon: <TbCheck size={16} />,
+        autoClose: 5000,
+      });
     } catch (err) {
+      updateNotification({
+        id: "send-message",
+        loading: false,
+        color: "red",
+        title: "送信失敗",
+        message: "メッセージの送信が失敗しました。",
+        icon: <TbX size={16} />,
+        autoClose: 5000,
+        disallowClose: true,
+      });
       console.log(err);
     }
   };
