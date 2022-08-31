@@ -1,5 +1,6 @@
 import { Box, Divider, Stack, Text, Title } from "@mantine/core";
 import { NextLink } from "@mantine/next";
+import dayjs from "dayjs";
 import { FC } from "react";
 
 type Props = {
@@ -8,7 +9,7 @@ type Props = {
     id: string;
     title: string;
     content: string;
-    updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+    updatedAt: string;
   }[];
 };
 
@@ -25,7 +26,7 @@ export const BlogSection: FC<Props> = ({ displayRow, blogs }) => {
         >
           <Title order={2}>{blog.title}</Title>
           <Text dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
-          <Text>{blog.updatedAt}</Text>
+          <Text>{dayjs(blog.updatedAt).format("YYYY.MM.DD")}</Text>
         </Box>
       ))}
     </Stack>

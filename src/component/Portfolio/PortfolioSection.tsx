@@ -1,4 +1,5 @@
 import { Divider, Grid, Image, Stack, Text, Title } from "@mantine/core";
+import dayjs from "dayjs";
 import { FC } from "react";
 import { useMediaQuery } from "src/lib/mantine";
 
@@ -18,8 +19,8 @@ type Props = {
     id: string;
     title: string;
     content: string;
-    createdAt: string /* TODO: 日付へのフォーマット対応 */;
-    updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+    createdAt: string;
+    updatedAt: string;
     eyecatch: {
       url: string;
     };
@@ -46,7 +47,8 @@ export const PortfolioSection: FC<Props> = ({ portfolios }) => {
               <Title order={2}>{portfolio.title}</Title>
               <Text>{portfolio.content}</Text>
               <Text>
-                {portfolio.createdAt} - {portfolio.updatedAt}
+                {dayjs(portfolio.createdAt).format("YYYY.MM")} -{" "}
+                {dayjs(portfolio.updatedAt).format("YYYY.MM")}
               </Text>
             </Stack>
           </Grid.Col>
