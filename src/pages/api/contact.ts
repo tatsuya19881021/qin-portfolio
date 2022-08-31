@@ -4,7 +4,7 @@ import { client } from "src/lib/microcms/client";
 const contact = async (req: NextApiRequest, res: NextApiResponse) => {
   const content = await client
     .create({
-      endpoint: "contacts",
+      endpoint: "contact",
       content: JSON.parse(JSON.stringify(req.body)),
     })
     .then(() => "Created")

@@ -68,10 +68,10 @@ export default Home;
 
 export const getStaticProps = async () => {
   const blog = await client.get({
-    endpoint: "blogs",
+    endpoint: "blog",
   });
   const portfolio = await client.get({
-    endpoint: "portfolios",
+    endpoint: "portfolio",
   });
 
   return {

@@ -31,7 +31,7 @@ export default Blog;
 
 export const getStaticProps = async () => {
   const data = await client.get({
-    endpoint: "blogs",
+    endpoint: "blog",
   });
 
   return {

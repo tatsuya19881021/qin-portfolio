@@ -31,7 +31,7 @@ export default Portfolio;
 
 export const getStaticProps = async () => {
   const data = await client.get({
-    endpoint: "portfolios",
+    endpoint: "portfolio",
   });
 
   return {
