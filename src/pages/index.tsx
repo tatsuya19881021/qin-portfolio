@@ -14,15 +14,15 @@ type Props = {
     id: string;
     title: string;
     content: string;
-    createdAt: string /* TODO: 日付へのフォーマット対応 */;
-    updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+    createdAt: string;
+    updatedAt: string;
   }[];
   portfolios: {
     id: string;
     title: string;
     content: string;
-    createdAt: string /* TODO: 日付へのフォーマット対応 */;
-    updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+    createdAt: string;
+    updatedAt: string;
     eyecatch: {
       url: string;
     };
@@ -68,10 +68,10 @@ export default Home;
 
 export const getStaticProps = async () => {
   const blog = await client.get({
-    endpoint: "blogs",
+    endpoint: "blog",
   });
   const portfolio = await client.get({
-    endpoint: "portfolios",
+    endpoint: "portfolio",
   });
 
   return {

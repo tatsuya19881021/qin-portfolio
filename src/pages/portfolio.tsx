@@ -9,8 +9,8 @@ type Props = {
     id: string;
     title: string;
     content: string;
-    createdAt: string /* TODO: 日付へのフォーマット対応 */;
-    updatedAt: string /* TODO: 日付へのフォーマット対応 */;
+    createdAt: string;
+    updatedAt: string;
     eyecatch: {
       url: string;
     };
@@ -31,7 +31,7 @@ export default Portfolio;
 
 export const getStaticProps = async () => {
   const data = await client.get({
-    endpoint: "portfolios",
+    endpoint: "portfolio",
   });
 
   return {
