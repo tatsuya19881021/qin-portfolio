@@ -38,7 +38,7 @@ export const getStaticPaths = async () => {
   const data = await client.get({ endpoint: "blog" });
 
   const paths = data.contents.map(
-    (content: { id: string }) => `/blog/detail/${content.id}`
+    (content: { id: string }) => `/blog/${content.id}`
   );
   return { paths, fallback: false };
 };

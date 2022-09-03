@@ -19,11 +19,7 @@ export const BlogSection: FC<Props> = ({ displayRow, blogs }) => {
       <Title order={1}>Blog</Title>
       <Divider />
       {blogs?.map((blog) => (
-        <Box
-          key={blog.id}
-          component={NextLink}
-          href={`/blog/detail/${blog.id}`}
-        >
+        <Box key={blog.id} component={NextLink} href={`/blog/${blog.id}`}>
           <Title order={2}>{blog.title}</Title>
           <Text dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
           <Text>{dayjs(blog.updatedAt).format("YYYY.MM.DD")}</Text>
