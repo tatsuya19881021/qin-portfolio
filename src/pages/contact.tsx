@@ -38,7 +38,7 @@ const Contact: CustomNextPage = () => {
         autoClose: false,
         disallowClose: true,
       });
-      await axios.post("/api/contact", values, {
+      await axios.post("/api/contact", JSON.stringify(values), {
         headers: {
           "Content-Type": "application/json",
         },
