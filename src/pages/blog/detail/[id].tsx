@@ -22,7 +22,9 @@ const BlogDetail: CustomNextPage<Props> = ({ blog }) => {
         <Title order={1}>{blog.title}</Title>
         <Divider />
         <Box>
-          <Text>{dayjs(blog.updatedAt).format("YYYY.MM.DD")}</Text>
+          <Text color="dark.2">
+            {dayjs(blog.updatedAt).format("YYYY.MM.DD")}
+          </Text>
           <Text dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
         </Box>
       </Stack>

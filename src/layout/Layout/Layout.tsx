@@ -26,7 +26,7 @@ const Footer: FC = () => {
     <Box>
       <Divider />
       <Center mt={16}>
-        <Text>&copy;2022 T.Mae</Text>
+        <Text color="gray.6">&copy;2022 T.Mae</Text>
       </Center>
     </Box>
   );
