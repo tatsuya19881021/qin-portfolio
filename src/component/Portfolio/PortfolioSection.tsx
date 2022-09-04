@@ -39,14 +39,15 @@ export const PortfolioSection: FC<Props> = ({ portfolios }) => {
           <Grid.Col xs={12} sm={6} md={6} lg={4} key={index}>
             <Stack spacing="lg">
               <Image
-                width={largerThanXs ? 314 : 314 * 1.5}
+                width={largerThanXs ? 254 : 254 * 1.5}
                 height={largerThanXs ? 184 : 184 * 1.5}
+                fit="contain"
                 src={portfolio.eyecatch.url}
                 alt="Home Page Image"
               />
               <Title order={2}>{portfolio.title}</Title>
               <Text>{portfolio.content}</Text>
-              <Text>
+              <Text color="dark.2">
                 {dayjs(portfolio.createdAt).format("YYYY.MM")} -{" "}
                 {dayjs(portfolio.updatedAt).format("YYYY.MM")}
               </Text>

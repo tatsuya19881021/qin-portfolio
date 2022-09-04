@@ -1,6 +1,6 @@
-import { Box, Divider, Stack, Text, Title } from "@mantine/core";
-import { NextLink } from "@mantine/next";
+import { Anchor, Box, Divider, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
+import Link from "next/link";
 import { FC } from "react";
 
 type Props = {
@@ -19,15 +19,20 @@ export const BlogSection: FC<Props> = ({ displayRow, blogs }) => {
       <Title order={1}>Blog</Title>
       <Divider />
       {blogs?.map((blog) => (
-        <Box
-          key={blog.id}
-          component={NextLink}
-          href={`/blog/detail/${blog.id}`}
-        >
-          <Title order={2}>{blog.title}</Title>
-          <Text dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
-          <Text>{dayjs(blog.updatedAt).format("YYYY.MM.DD")}</Text>
-        </Box>
+        <Link key={blog.id} href={`/blog/detail/${blog.id}`} passHref>
+          <Anchor component="a">
+            <Text size={24} weight={700} color="dark.6">
+              {blog.title}
+            </Text>
+            <Text
+              color="dark.6"
+              dangerouslySetInnerHTML={{ __html: `${blog.content}` }}
+            />
+            <Text color="dark.2">
+              {dayjs(blog.updatedAt).format("YYYY.MM.DD")}
+            </Text>
+          </Anchor>
+        </Link>
       ))}
     </Stack>
   );
