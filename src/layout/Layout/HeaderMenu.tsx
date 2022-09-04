@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { NextLink } from "@mantine/next";
-import { Text, ActionIcon, Drawer, Stack, CloseButton } from "@mantine/core";
+import { Text, ActionIcon, Drawer, Stack, Burger } from "@mantine/core";
 import { TbMenu2 } from "react-icons/tb";
 
 type Props = {
@@ -24,10 +24,11 @@ export const HeaderMenu: FC<Props> = ({ items }) => {
         withCloseButton={false}
       >
         <Stack>
-          <CloseButton
-            size="xl"
-            color="white"
+          <Burger
+            opened={opened}
             onClick={() => setOpened(false)}
+            color="white"
+            mb={8}
           />
 
           {items.map((item) => (
