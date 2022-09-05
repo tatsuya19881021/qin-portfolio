@@ -1,29 +1,27 @@
 import { Box, Divider, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
-import type { CustomNextPage } from "next";
+import { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
+import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Layout } from "src/layout";
 import { client } from "src/lib/microcms/client";
+import { BlogContent, BlogContents } from "src/type/microcms";
 
-type Content = {
-  id: string;
-  title: string;
-  content: string;
-  updatedAt: string;
-};
+type Props = BlogContent & MicroCMSContentId & MicroCMSDate;
 
-type Props = {
-  blog: Content;
-};
-
-const BlogDetail: CustomNextPage<Props> = ({ blog }) => {
+const BlogDetail: CustomNextPage<Props> = (blog) => {
   return (
     <Box component="main">
       <Stack spacing="lg">
         <Title order={1}>{blog.title}</Title>
         <Divider />
         <Box>
-          <Text>{dayjs(blog.updatedAt).format("YYYY.MM.DD")}</Text>
-          <Text dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
+          <Text component="time">
+            {dayjs(blog.updatedAt).format("YYYY.MM.DD")}
+          </Text>
+          <Text
+            component="article"
+            dangerouslySetInnerHTML={{ __html: `${blog.content}` }}
+          />
         </Box>
       </Stack>
     </Box>
@@ -32,27 +30,35 @@ const BlogDetail: CustomNextPage<Props> = ({ blog }) => {
 
 BlogDetail.getLayout = Layout;
 
-export default BlogDetail;
+export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
+  const blogs = await client.getList<BlogContents>({
+    endpoint: "blog",
+  });
+  const paths = blogs.contents.map((content) => `/blog/detail/${content.id}`);
 
-export const getStaticPaths = async () => {
-  const data = await client.get({ endpoint: "blog" });
-
-  const paths = data.contents.map(
-    (content: { id: string }) => `/blog/detail/${content.id}`
-  );
-  return { paths, fallback: false };
+  return {
+    paths,
+    fallback: false,
+  };
 };
 
-export const getStaticProps = async (context: { params: { id: string } }) => {
-  const id = context.params.id;
-  const blog = await client.getListDetail<Content>({
+export const getStaticProps: GetStaticProps<Props, { id: string }> = async (
+  ctx
+) => {
+  if (!ctx.params) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const blog = await client.getListDetail<BlogContent>({
     endpoint: "blog",
-    contentId: id,
+    contentId: ctx.params.id,
   });
 
   return {
-    props: {
-      blog,
-    },
+    props: blog,
   };
 };
+
+export default BlogDetail;
