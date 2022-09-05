@@ -1,5 +1,5 @@
 import { Box, Button, Center } from "@mantine/core";
-import type { CustomNextPage } from "next";
+import type { CustomNextPage, GetStaticProps } from "next";
 import { Layout } from "src/layout";
 import { TitleSection } from "src/component/Home";
 import { BlogSection } from "src/component/Blog/BlogSection";
@@ -8,25 +8,12 @@ import { GithubSection } from "src/component/Github";
 import { TwitterSection } from "src/component/Twitter";
 import { useMediaQuery } from "src/lib/mantine";
 import { client } from "src/lib/microcms/client";
+import { BlogContent, PortfolioContent } from "src/type/microcms";
+import { MicroCMSListResponse } from "microcms-js-sdk";
 
 type Props = {
-  blogs: {
-    id: string;
-    title: string;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-  }[];
-  portfolios: {
-    id: string;
-    title: string;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-    eyecatch: {
-      url: string;
-    };
-  }[];
+  blogs: MicroCMSListResponse<BlogContent>;
+  portfolios: MicroCMSListResponse<PortfolioContent>;
 };
 
 const Home: CustomNextPage<Props> = ({ blogs, portfolios }) => {
@@ -64,20 +51,20 @@ const Home: CustomNextPage<Props> = ({ blogs, portfolios }) => {
 
 Home.getLayout = Layout;
 
-export default Home;
-
-export const getStaticProps = async () => {
-  const blog = await client.get({
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const blogs = await client.getList<BlogContent>({
     endpoint: "blog",
   });
-  const portfolio = await client.get({
+  const portfolios = await client.getList<PortfolioContent>({
     endpoint: "portfolio",
   });
 
   return {
     props: {
-      blogs: blog.contents,
-      portfolios: portfolio.contents,
+      blogs,
+      portfolios,
     },
   };
 };
+
+export default Home;

@@ -1,33 +1,13 @@
 import { Divider, Grid, Image, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
+import { MicroCMSListResponse } from "microcms-js-sdk";
 import { FC } from "react";
 import { useMediaQuery } from "src/lib/mantine";
+import { PortfolioContent } from "src/type/microcms";
 
-const articles = [...Array(6)].map(() => {
-  return {
-    thumbnail:
-      "https://cdn.pixabay.com/photo/2022/08/09/22/06/field-7375948_960_720.jpg",
-    title: "IT KINGDOM",
-    description:
-      "当サロンのLPページ。React、Next.js、TypeScriptなどのモダンな技術を用いて作られています。初心者にちょうど良い難易度の制作物です。",
-    creationTime: "2021.10 - 2021.12",
-  };
-});
+type Props = MicroCMSListResponse<PortfolioContent>;
 
-type Props = {
-  portfolios: {
-    id: string;
-    title: string;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-    eyecatch: {
-      url: string;
-    };
-  }[];
-};
-
-export const PortfolioSection: FC<Props> = ({ portfolios }) => {
+export const PortfolioSection: FC<{ portfolios: Props }> = ({ portfolios }) => {
   const largerThanXs = useMediaQuery("xs");
 
   return (
@@ -35,8 +15,8 @@ export const PortfolioSection: FC<Props> = ({ portfolios }) => {
       <Title order={1}>Portfolio</Title>
       <Divider />
       <Grid justify="space-between">
-        {portfolios?.map((portfolio, index) => (
-          <Grid.Col xs={12} sm={6} md={6} lg={4} key={index}>
+        {portfolios.contents.map((portfolio) => (
+          <Grid.Col xs={12} sm={6} md={6} lg={4} key={portfolio.id}>
             <Stack spacing="lg">
               <Image
                 width={largerThanXs ? 254 : 254 * 1.5}
