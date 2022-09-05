@@ -1,11 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { client } from "src/lib/microcms/client";
 
+type Content = {
+  email: string;
+  name: string;
+  message: string;
+};
+
 const contact = async (req: NextApiRequest, res: NextApiResponse) => {
   const content = await client
-    .create({
+    .create<Content>({
       endpoint: "contact",
-      content: JSON.parse(JSON.stringify(req.body)),
+      content: req.body,
     })
     .then(() => "Created")
     .catch(() => null);
