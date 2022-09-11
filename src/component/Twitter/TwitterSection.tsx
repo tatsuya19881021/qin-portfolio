@@ -1,7 +1,5 @@
 import {
   Avatar,
-  Button,
-  Center,
   Divider,
   Grid,
   Group,
@@ -10,6 +8,7 @@ import {
   Title,
 } from "@mantine/core";
 import { FC } from "react";
+import { CenterButton } from "src/component/common";
 import { useMediaQuery } from "src/lib/mantine";
 
 const articles = [...Array(3)].map((_, index) => {
@@ -54,11 +53,11 @@ export const TwitterSection: FC = () => {
           </Grid.Col>
         </Grid>
       ))}
-      <Center mt="lg">
-        <Button color="dark" className="rounded-full">
-          View on Twitter
-        </Button>
-      </Center>
+      <CenterButton
+        target="_blank"
+        href="https://twitter.com/tmae94854943"
+        text="View on Twitter"
+      />
     </Stack>
   );
 };
