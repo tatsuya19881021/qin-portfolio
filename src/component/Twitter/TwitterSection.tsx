@@ -9,53 +9,56 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { NextLink } from "@mantine/next";
+import dayjs from "dayjs";
 import { FC } from "react";
 import { useMediaQuery } from "src/lib/mantine";
+import { TweetV2, UserV2 } from "twitter-api-v2";
 
-const articles = [...Array(3)].map((_, index) => {
-  return {
-    id: index,
-    icon: "",
-    name: "ユーザー名",
-    userId: "@user",
-    date: "5月25日",
-    content:
-      "📣 新サービス「Noway Form」をリリースしました！\n\nNoway Formは、Notionのデータベースをもとにフォームを作成できるサービスです。これまでGoogle FormsでやっていたことがNotionだけで完結します✌✨\n\n試しに使っていただけると幸いです😊\n\nhttps://www.noway-form.com/ja",
-  };
-});
+type Props = {
+  twitterUser: UserV2;
+  tweets: TweetV2[];
+};
 
-export const TwitterSection: FC = () => {
+export const TwitterSection: FC<Props> = ({ twitterUser, tweets }) => {
   const largerThanSm = useMediaQuery("sm");
 
   return (
     <Stack spacing="lg" className={largerThanSm ? "w-1/2" : "w-full"}>
       <Title order={1}>Twitter</Title>
       <Divider />
-      {articles.map((article) => (
+      {tweets.map((tweet) => (
         <Grid
-          key={article.id}
+          key={tweet.id}
           justify="space-between"
           align="flex-start"
           columns={24}
         >
           <Grid.Col span={1}>
-            <Avatar radius="xl" size={38} />
+            <Avatar radius="xl" size={38} src={twitterUser.profile_image_url} />
           </Grid.Col>
           <Grid.Col span={21}>
             <Group>
               <Text size="xl" weight={700}>
-                {article.name}
+                {twitterUser.name}
               </Text>
               <Text>
-                {article.userId} ・ {article.date}
+                @{twitterUser.username} ・{" "}
+                {dayjs(tweet.created_at).format("M月DD日")}
               </Text>
             </Group>
-            <Text>{article.content}</Text>
+            <Text>{tweet.text}</Text>
           </Grid.Col>
         </Grid>
       ))}
       <Center mt="lg">
-        <Button color="dark" className="rounded-full">
+        <Button
+          component={NextLink}
+          target="_blank"
+          color="dark"
+          className="rounded-full"
+          href="https://twitter.com/tmae94854943"
+        >
           View on Twitter
         </Button>
       </Center>
