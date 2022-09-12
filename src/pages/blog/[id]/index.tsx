@@ -1,4 +1,4 @@
-import { Box, Divider, Stack, Text, Title } from "@mantine/core";
+import { Box, Container, Divider, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
@@ -11,19 +11,21 @@ type Props = BlogContent & MicroCMSContentId & MicroCMSDate;
 const BlogDetail: CustomNextPage<Props> = (blog) => {
   return (
     <Box component="main">
-      <Stack spacing="lg">
-        <Title order={1}>{blog.title}</Title>
-        <Divider />
-        <Box>
-          <Text component="time" color="dark.2">
-            {dayjs(blog.updatedAt).format("YYYY.MM.DD")}
-          </Text>
-          <Text
-            component="article"
-            dangerouslySetInnerHTML={{ __html: `${blog.content}` }}
-          />
-        </Box>
-      </Stack>
+      <Container size="md">
+        <Stack spacing="lg">
+          <Title order={1}>{blog.title}</Title>
+          <Divider />
+          <Box>
+            <Text component="time" color="dark.2">
+              {dayjs(blog.updatedAt).format("YYYY.MM.DD")}
+            </Text>
+            <Text
+              component="article"
+              dangerouslySetInnerHTML={{ __html: `${blog.content}` }}
+            />
+          </Box>
+        </Stack>
+      </Container>
     </Box>
   );
 };

@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { ComponentProps, FC, useState } from "react";
 import { NextLink } from "@mantine/next";
-import { Box, Group, Text, ActionIcon } from "@mantine/core";
-import { TbMoon, TbSun } from "react-icons/tb";
+import { Box, Group, Text, ActionIcon, Container } from "@mantine/core";
+import { TbMenu2, TbMoon, TbSun } from "react-icons/tb";
 import { useMediaQuery } from "src/lib/mantine";
 import { HeaderMenu } from "src/layout/Layout/HeaderMenu";
 
@@ -14,50 +14,77 @@ const ITEMS = [
 
 export const Header: FC = () => {
   const largerThanSm = useMediaQuery("sm");
+  const [opened, setOpened] = useState(false);
   const dark = false;
 
+  const handleClick = (prevOpened: boolean) => {
+    prevOpened ? setOpened(false) : setOpened(true);
+  };
+
   return (
-    <Box
-      component="header"
-      sx={(theme) => ({
-        padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
-        backgroundColor: theme.white,
-      })}
-    >
-      <Group position="apart" spacing="lg" noWrap>
-        {largerThanSm ? null : <HeaderMenu items={ITEMS} />}
-
-        <Text size="xl" weight={700} component={NextLink} href="/">
-          My Portfolio
-        </Text>
-
-        <Group position="right">
-          {largerThanSm ? (
-            <Group spacing="md">
-              {ITEMS.map((item) => (
-                <Text
-                  size="xl"
-                  weight={700}
-                  component={NextLink}
-                  href={item.href}
-                  key={item.href}
-                >
-                  {item.text}
-                </Text>
-              ))}
-            </Group>
-          ) : null}
-
+    <Box className="w-full">
+      {largerThanSm ? null : (
+        <HeaderMenu
+          items={ITEMS}
+          opened={opened}
+          onClick={() => handleClick(opened)}
+        />
+      )}
+      <Container size="md">
+        <Box
+          component="header"
+          className={
+            largerThanSm
+              ? "w-full flex items-center justify-between h-16 bg"
+              : "w-full flex items-center justify-center h-16"
+          }
+        >
           <ActionIcon
-            variant="default"
-            color={dark ? "yello" : "blue"}
-            title="Toggle color scheme"
-            sx={{ "&:not(:disabled):active": { transform: "none" } }}
+            color="dark.6"
+            className={largerThanSm ? "hidden" : undefined}
+            onClick={() => handleClick(opened)}
           >
-            {dark ? <TbSun size={18} /> : <TbMoon size={18} />}
+            <TbMenu2 size={18} />
           </ActionIcon>
-        </Group>
-      </Group>
+
+          <Text
+            size="xl"
+            weight={700}
+            component={NextLink}
+            href="/"
+            className={largerThanSm ? undefined : "m-auto"}
+          >
+            My Portfolio
+          </Text>
+
+          <Group position="right" spacing="xl" align="center">
+            {largerThanSm ? (
+              <Group spacing="md">
+                {ITEMS.map((item) => (
+                  <Text
+                    size="xl"
+                    weight={700}
+                    component={NextLink}
+                    href={item.href}
+                    key={item.href}
+                  >
+                    {item.text}
+                  </Text>
+                ))}
+              </Group>
+            ) : null}
+
+            <ActionIcon
+              variant="default"
+              color={dark ? "yello" : "blue"}
+              title="Toggle color scheme"
+              sx={{ "&:not(:disabled):active": { transform: "none" } }}
+            >
+              {dark ? <TbSun size={18} /> : <TbMoon size={18} />}
+            </ActionIcon>
+          </Group>
+        </Box>
+      </Container>
     </Box>
   );
 };
