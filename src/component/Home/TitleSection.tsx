@@ -1,53 +1,49 @@
-import {
-  Container,
-  Stack,
-  Title,
-  Group,
-  ActionIcon,
-  Text,
-  Box,
-} from "@mantine/core";
+import { Container, Text, Box } from "@mantine/core";
 import { FC } from "react";
 import { FaTwitter, FaFacebookSquare, FaRss } from "react-icons/fa";
+import { TitleIcon } from "src/component/Home/TitleIcon";
+import { useMediaQuery } from "src/lib/mantine";
 
 export const TitleSection: FC = () => {
+  const largerThanSm = useMediaQuery("sm");
+
   return (
     <Box className="bg-pink-600 h-60">
-      {/* TODO: 垂直方向で中央に配置したいが、今のコンポーネントだと調整が上手く行かない */}
-      <Container>
-        <Group position="apart">
-          <Stack>
-            <Title order={1} className="text-white">
+      <Container size="md">
+        <Box
+          className={
+            largerThanSm
+              ? "flex justify-between items-center h-60"
+              : "flex flex-col justify-center h-60"
+          }
+        >
+          <Box>
+            <Text
+              weight={700}
+              size={largerThanSm ? 36 : 28}
+              className="text-white"
+            >
               My Portfolio
-            </Title>
-            <Text size="lg" className="text-white">
+            </Text>
+            <Text weight={700} size="xs" className="text-white">
               私のポートフォリオのためのページです
             </Text>
-          </Stack>
-          <Group position="right" spacing={4}>
-            <ActionIcon
-              size="md"
-              className="bg-pink-600 text-white"
-              sx={{ "&:not(:disabled):active": { transform: "none" } }}
-            >
+          </Box>
+
+          <Box
+            className={largerThanSm ? "flex space-x-2" : "flex space-x-2 mt-10"}
+          >
+            <TitleIcon>
               <FaTwitter />
-            </ActionIcon>
-            <ActionIcon
-              size="md"
-              className="bg-pink-600 text-white"
-              sx={{ "&:not(:disabled):active": { transform: "none" } }}
-            >
+            </TitleIcon>
+            <TitleIcon>
               <FaFacebookSquare />
-            </ActionIcon>
-            <ActionIcon
-              size="md"
-              className="bg-pink-600 text-white"
-              sx={{ "&:not(:disabled):active": { transform: "none" } }}
-            >
+            </TitleIcon>
+            <TitleIcon>
               <FaRss />
-            </ActionIcon>
-          </Group>
-        </Group>
+            </TitleIcon>
+          </Box>
+        </Box>
       </Container>
     </Box>
   );

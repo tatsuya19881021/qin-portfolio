@@ -1,4 +1,4 @@
-import { Box, Center, Loader, Space } from "@mantine/core";
+import { Box, Center, Container, Loader, Space } from "@mantine/core";
 import { MicroCMSListResponse } from "microcms-js-sdk";
 import type { CustomNextPage, GetStaticProps } from "next";
 import { BlogSection } from "src/component/Blog/BlogSection";
@@ -11,11 +11,13 @@ type Props = MicroCMSListResponse<BlogContent>;
 const Blog: CustomNextPage<Props> = (blogs) => {
   return (
     <Box component="main">
-      <BlogSection displayRow={10} blogs={blogs} />
-      <Space h="lg" />
-      <Center>
-        <Loader color="pink.6" />
-      </Center>
+      <Container size="md">
+        <BlogSection displayRow={10} blogs={blogs} />
+        <Space h="lg" />
+        <Center>
+          <Loader color="pink.6" />
+        </Center>
+      </Container>
     </Box>
   );
 };

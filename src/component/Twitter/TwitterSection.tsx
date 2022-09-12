@@ -1,7 +1,5 @@
 import {
   Avatar,
-  Button,
-  Center,
   Divider,
   Grid,
   Group,
@@ -12,6 +10,7 @@ import {
 import { NextLink } from "@mantine/next";
 import dayjs from "dayjs";
 import { FC } from "react";
+import { CenterButton } from "src/component/common";
 import { useMediaQuery } from "src/lib/mantine";
 import { TweetV2, UserV2 } from "twitter-api-v2";
 
@@ -51,17 +50,11 @@ export const TwitterSection: FC<Props> = ({ twitterUser, tweets }) => {
           </Grid.Col>
         </Grid>
       ))}
-      <Center mt="lg">
-        <Button
-          component={NextLink}
-          target="_blank"
-          color="dark"
-          className="rounded-full"
-          href="https://twitter.com/tmae94854943"
-        >
-          View on Twitter
-        </Button>
-      </Center>
+      <CenterButton
+        target="_blank"
+        href="https://twitter.com/tmae94854943"
+        text="View on Twitter"
+      />
     </Stack>
   );
 };

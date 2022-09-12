@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Container,
   Divider,
   Stack,
   Textarea,
@@ -69,36 +70,38 @@ const Contact: CustomNextPage = () => {
 
   return (
     <Box component="main">
-      <Stack spacing="lg">
-        <Title order={1}>Contact</Title>
-        <Divider />
+      <Container size="md">
+        <Stack spacing="lg">
+          <Title order={1}>Contact</Title>
+          <Divider />
 
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <TextInput
-            label="Email"
-            placeholder="your@email.com"
-            {...form.getInputProps("email")}
-          />
-          <TextInput
-            mt="lg"
-            label="Name"
-            placeholder="Taro Yamada"
-            {...form.getInputProps("name")}
-          />
-          <Textarea
-            mt="lg"
-            label="Your message"
-            placeholder="I want to order your goods"
-            {...form.getInputProps("message")}
-          />
+          <form onSubmit={form.onSubmit(handleSubmit)}>
+            <TextInput
+              label="Email"
+              placeholder="your@email.com"
+              {...form.getInputProps("email")}
+            />
+            <TextInput
+              mt="lg"
+              label="Name"
+              placeholder="Taro Yamada"
+              {...form.getInputProps("name")}
+            />
+            <Textarea
+              mt="lg"
+              label="Your message"
+              placeholder="I want to order your goods"
+              {...form.getInputProps("message")}
+            />
 
-          <Center mt="lg">
-            <Button type="submit" color="dark" className="rounded-full">
-              Send message
-            </Button>
-          </Center>
-        </form>
-      </Stack>
+            <Center mt="lg">
+              <Button type="submit" color="dark" className="rounded-full">
+                Send message
+              </Button>
+            </Center>
+          </form>
+        </Stack>
+      </Container>
     </Box>
   );
 };
