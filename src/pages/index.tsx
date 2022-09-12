@@ -11,13 +11,27 @@ import { client } from "src/lib/microcms/client";
 import { BlogContent, PortfolioContent } from "src/type/microcms";
 import { MicroCMSListResponse } from "microcms-js-sdk";
 import { CenterButton } from "src/component/common";
+import { roTwitterClient } from "src/lib/twitter/client";
+import {
+  TweetUserTimelineV2Paginator,
+  TweetV2,
+  UserV2,
+  UserV2Result,
+} from "twitter-api-v2";
 
 type Props = {
   blogs: MicroCMSListResponse<BlogContent>;
   portfolios: MicroCMSListResponse<PortfolioContent>;
+  twitterUser: UserV2;
+  tweets: TweetV2[];
 };
 
-const Home: CustomNextPage<Props> = ({ blogs, portfolios }) => {
+const Home: CustomNextPage<Props> = ({
+  blogs,
+  portfolios,
+  twitterUser,
+  tweets,
+}) => {
   const largerThanSm = useMediaQuery("sm");
 
   return (
@@ -35,7 +49,7 @@ const Home: CustomNextPage<Props> = ({ blogs, portfolios }) => {
           }
         >
           <GithubSection />
-          <TwitterSection />
+          <TwitterSection twitterUser={twitterUser} tweets={tweets} />
         </Box>
       </Container>
     </Box>
@@ -51,11 +65,24 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const portfolios = await client.getList<PortfolioContent>({
     endpoint: "portfolio",
   });
+  const twitterUser: UserV2Result = await roTwitterClient.v2.userByUsername(
+    "tmae94854943",
+    {
+      "user.fields": ["profile_image_url"],
+    }
+  );
+  const timeline: TweetUserTimelineV2Paginator =
+    await roTwitterClient.v2.userTimeline(twitterUser.data.id, {
+      "tweet.fields": ["created_at"],
+      max_results: 5,
+    });
 
   return {
     props: {
       blogs,
       portfolios,
+      twitterUser: twitterUser.data,
+      tweets: timeline.tweets,
     },
   };
 };
