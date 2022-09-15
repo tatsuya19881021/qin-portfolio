@@ -1,4 +1,4 @@
-import { Box, Button, Center } from "@mantine/core";
+import { Box, Button, Center, Container } from "@mantine/core";
 import type { CustomNextPage, GetStaticProps } from "next";
 import { Layout } from "src/layout";
 import { TitleSection } from "src/component/Home";
@@ -10,6 +10,7 @@ import { useMediaQuery } from "src/lib/mantine";
 import { client } from "src/lib/microcms/client";
 import { BlogContent, PortfolioContent } from "src/type/microcms";
 import { MicroCMSListResponse } from "microcms-js-sdk";
+import { CenterButton } from "src/component/common";
 import { roTwitterClient } from "src/lib/twitter/client";
 import {
   TweetUserTimelineV2Paginator,
@@ -36,29 +37,21 @@ const Home: CustomNextPage<Props> = ({
   return (
     <Box component="main">
       <TitleSection />
-      <Box mt={16}>
+      <Container size="md" py={16}>
         <BlogSection displayRow={5} blogs={blogs} />
-        <Center mt="lg">
-          <Button color="dark" className="rounded-full">
-            View All
-          </Button>
-        </Center>
-      </Box>
-      <Box mt={16}>
+        <CenterButton href="/blog" text="View All" />
         <PortfolioSection portfolios={portfolios} />
-        <Center mt="lg">
-          <Button color="dark" className="rounded-full">
-            View All
-          </Button>
-        </Center>
-      </Box>
-      <Box
-        mt={16}
-        className={largerThanSm ? "flex justify-between space-x-10" : undefined}
-      >
-        <GithubSection />
-        <TwitterSection twitterUser={twitterUser} tweets={tweets} />
-      </Box>
+        <CenterButton href="/portfolio" text="View All" />
+        <Box
+          py={16}
+          className={
+            largerThanSm ? "flex justify-between space-x-10" : undefined
+          }
+        >
+          <GithubSection />
+          <TwitterSection twitterUser={twitterUser} tweets={tweets} />
+        </Box>
+      </Container>
     </Box>
   );
 };

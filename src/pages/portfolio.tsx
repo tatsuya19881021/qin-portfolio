@@ -1,4 +1,4 @@
-import { Box } from "@mantine/core";
+import { Box, Container } from "@mantine/core";
 import { MicroCMSListResponse } from "microcms-js-sdk";
 import type { CustomNextPage, GetStaticProps } from "next";
 import { PortfolioSection } from "src/component/Portfolio";
@@ -11,7 +11,9 @@ type Props = MicroCMSListResponse<PortfolioContent>;
 const Portfolio: CustomNextPage<Props> = (portfolios) => {
   return (
     <Box component="main">
-      <PortfolioSection portfolios={portfolios} />
+      <Container size="md">
+        <PortfolioSection portfolios={portfolios} />
+      </Container>
     </Box>
   );
 };
