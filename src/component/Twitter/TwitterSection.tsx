@@ -7,7 +7,6 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { NextLink } from "@mantine/next";
 import dayjs from "dayjs";
 import { FC } from "react";
 import { CenterButton } from "src/component/common";

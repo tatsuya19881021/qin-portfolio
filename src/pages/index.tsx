@@ -1,4 +1,4 @@
-import { Box, Button, Center, Container } from "@mantine/core";
+import { Box, Container } from "@mantine/core";
 import type { CustomNextPage, GetStaticProps } from "next";
 import { Layout } from "src/layout";
 import { TitleSection } from "src/component/Home";
@@ -38,7 +38,7 @@ const Home: CustomNextPage<Props> = ({
     <Box component="main">
       <TitleSection />
       <Container size="md" py={16}>
-        <BlogSection displayRow={5} blogs={blogs} />
+        <BlogSection blogs={blogs} />
         <CenterButton href="/blog" text="View All" />
         <PortfolioSection portfolios={portfolios} />
         <CenterButton href="/portfolio" text="View All" />
@@ -61,6 +61,7 @@ Home.getLayout = Layout;
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const blogs = await client.getList<BlogContent>({
     endpoint: "blog",
+    queries: { limit: 5 },
   });
   const portfolios = await client.getList<PortfolioContent>({
     endpoint: "portfolio",
