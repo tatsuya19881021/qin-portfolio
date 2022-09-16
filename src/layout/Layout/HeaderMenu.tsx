@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { NextLink } from "@mantine/next";
 import { Text, Drawer, Stack, Burger } from "@mantine/core";
 

@@ -12,7 +12,7 @@ const Blog: CustomNextPage<Props> = (blogs) => {
   return (
     <Box component="main">
       <Container size="md">
-        <BlogSection displayRow={10} blogs={blogs} />
+        <BlogSection blogs={blogs} />
         <Space h="lg" />
         <Center>
           <Loader color="pink.6" />
@@ -27,6 +27,7 @@ Blog.getLayout = Layout;
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const blogs = await client.getList<BlogContent>({
     endpoint: "blog",
+    queries: { limit: 10 },
   });
 
   return {

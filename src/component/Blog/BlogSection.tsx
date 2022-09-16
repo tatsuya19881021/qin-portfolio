@@ -1,4 +1,4 @@
-import { Anchor, Box, Divider, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Divider, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { MicroCMSListResponse } from "microcms-js-sdk";
@@ -6,11 +6,10 @@ import { FC } from "react";
 import { BlogContent } from "src/type/microcms";
 
 type Props = {
-  displayRow: number;
   blogs: MicroCMSListResponse<BlogContent>;
 };
 
-export const BlogSection: FC<Props> = ({ displayRow, blogs }) => {
+export const BlogSection: FC<Props> = ({ blogs }) => {
   return (
     <Stack spacing="lg">
       <Title order={1}>Blog</Title>

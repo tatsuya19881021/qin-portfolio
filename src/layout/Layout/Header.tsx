@@ -1,4 +1,4 @@
-import { ComponentProps, FC, useState } from "react";
+import { FC, useState } from "react";
 import { NextLink } from "@mantine/next";
 import { Box, Group, Text, ActionIcon, Container } from "@mantine/core";
 import { TbMenu2, TbMoon, TbSun } from "react-icons/tb";
