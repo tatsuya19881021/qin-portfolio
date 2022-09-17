@@ -7,19 +7,17 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { NextLink } from "@mantine/next";
 import dayjs from "dayjs";
 import { FC } from "react";
 import { CenterButton } from "src/component/common";
 import { useMediaQuery } from "src/lib/mantine";
-import { TweetV2, UserV2 } from "twitter-api-v2";
+import { TwitterContents } from "src/type/twitter";
 
 type Props = {
-  twitterUser: UserV2;
-  tweets: TweetV2[];
+  tweets: TwitterContents;
 };
 
-export const TwitterSection: FC<Props> = ({ twitterUser, tweets }) => {
+export const TwitterSection: FC<Props> = ({ tweets }) => {
   const largerThanSm = useMediaQuery("sm");
 
   return (
@@ -34,16 +32,15 @@ export const TwitterSection: FC<Props> = ({ twitterUser, tweets }) => {
           columns={24}
         >
           <Grid.Col span={1}>
-            <Avatar radius="xl" size={38} src={twitterUser.profile_image_url} />
+            <Avatar radius="xl" size={38} src={tweet.profile_image_url} />
           </Grid.Col>
           <Grid.Col span={21}>
             <Group>
               <Text size="xl" weight={700}>
-                {twitterUser.name}
+                {tweet.name}
               </Text>
               <Text>
-                @{twitterUser.username} ・{" "}
-                {dayjs(tweet.created_at).format("M月DD日")}
+                @{tweet.username} ・ {dayjs(tweet.created_at).format("M月DD日")}
               </Text>
             </Group>
             <Text>{tweet.text}</Text>

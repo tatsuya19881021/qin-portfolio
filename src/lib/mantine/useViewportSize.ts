@@ -9,5 +9,5 @@ export const useViewportSize = () => {
     setMounted(true);
   }, []);
 
-  return mounted ? viewportSize : { width: undefined, height: undefined };
+  return mounted ? viewportSize : { height: undefined, width: undefined };
 };

@@ -13,10 +13,10 @@ export type PortfolioContent = {
   title: string;
   content: string;
   createdAt: string;
-  updatedAt: string;
   eyecatch: {
     url: string;
   };
+  updatedAt: string;
 };
 
 export type PortfolioContents = PortfolioContent[];

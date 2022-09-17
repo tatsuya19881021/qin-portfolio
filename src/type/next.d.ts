@@ -1,3 +1,4 @@
+/* eslint-disable unused-imports/no-unused-vars */
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 

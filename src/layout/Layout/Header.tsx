@@ -1,9 +1,9 @@
-import { ComponentProps, FC, useState } from "react";
+import { ActionIcon, Box, Container, Group, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
-import { Box, Group, Text, ActionIcon, Container } from "@mantine/core";
+import { FC, useState } from "react";
 import { TbMenu2, TbMoon, TbSun } from "react-icons/tb";
-import { useMediaQuery } from "src/lib/mantine";
 import { HeaderMenu } from "src/layout/Layout/HeaderMenu";
+import { useMediaQuery } from "src/lib/mantine";
 
 const ITEMS = [
   { href: "/about", text: "About" },

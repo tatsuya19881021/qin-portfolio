@@ -3,12 +3,12 @@ import { NextLink } from "@mantine/next";
 import { FC } from "react";
 
 type Props = {
-  target?: "_blank";
   href: string;
+  target?: "_blank";
   text: string;
 };
 
-export const CenterButton: FC<Props> = ({ target, href, text }) => {
+export const CenterButton: FC<Props> = ({ href, target, text }) => {
   return (
     <Center mt="lg">
       <Button

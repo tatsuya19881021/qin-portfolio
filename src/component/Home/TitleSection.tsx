@@ -1,6 +1,6 @@
-import { Container, Text, Box } from "@mantine/core";
+import { Box, Container, Text } from "@mantine/core";
 import { FC } from "react";
-import { FaTwitter, FaFacebookSquare, FaRss } from "react-icons/fa";
+import { FaFacebookSquare, FaRss, FaTwitter } from "react-icons/fa";
 import { TitleIcon } from "src/component/Home/TitleIcon";
 import { useMediaQuery } from "src/lib/mantine";
 

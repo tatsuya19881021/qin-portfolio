@@ -1,7 +1,5 @@
 import {
   Box,
-  Button,
-  Center,
   Divider,
   Group,
   Progress,
@@ -21,25 +19,25 @@ const articles = [...Array(5)].map((_, index) => {
     id: index,
     name: "lightsound/nexst-tailwind",
     description: "Next.js starter template.",
-    star: 117,
     fork: 18,
     languages: [
       {
-        color: "#3178C6",
         name: "TypeScript",
+        color: "#3178C6",
         value: 65.4,
       },
       {
-        color: "#F1E05A",
         name: "JavaScript",
+        color: "#F1E05A",
         value: 33.8,
       },
       {
-        color: "#EDEDED",
         name: "Other",
+        color: "#EDEDED",
         value: 0.8,
       },
     ],
+    star: 117,
   };
 });
 
