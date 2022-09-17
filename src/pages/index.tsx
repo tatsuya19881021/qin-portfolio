@@ -1,4 +1,5 @@
 import { Box, Container } from "@mantine/core";
+import axios from "axios";
 import { MicroCMSListResponse } from "microcms-js-sdk";
 import type { CustomNextPage, GetStaticProps } from "next";
 import { BlogSection } from "src/component/Blog/BlogSection";
@@ -10,29 +11,24 @@ import { TwitterSection } from "src/component/Twitter";
 import { Layout } from "src/layout";
 import { useMediaQuery } from "src/lib/mantine";
 import { client } from "src/lib/microcms/client";
-import { roTwitterClient } from "src/lib/twitter/client";
 import { BlogContent, PortfolioContent } from "src/type/microcms";
-import {
-  TweetUserTimelineV2Paginator,
-  TweetV2,
-  UserV2,
-  UserV2Result,
-} from "twitter-api-v2";
+import { TwitterContents } from "src/type/twitter";
+import useSWR from "swr";
 
 type Props = {
   blogs: MicroCMSListResponse<BlogContent>;
   portfolios: MicroCMSListResponse<PortfolioContent>;
-  tweets: TweetV2[];
-  twitterUser: UserV2;
 };
 
-const Home: CustomNextPage<Props> = ({
-  blogs,
-  portfolios,
-  tweets,
-  twitterUser,
-}) => {
+const fetchTwitter = async (url: string): Promise<TwitterContents> => {
+  const response = await axios.get(url);
+  return response.data;
+};
+
+const Home: CustomNextPage<Props> = ({ blogs, portfolios }) => {
   const largerThanSm = useMediaQuery("sm");
+  const response = useSWR("/api/tweet", fetchTwitter);
+  const tweets = response.data ?? [];
 
   return (
     <Box component="main">
@@ -49,7 +45,7 @@ const Home: CustomNextPage<Props> = ({
           }
         >
           <GithubSection />
-          <TwitterSection twitterUser={twitterUser} tweets={tweets} />
+          <TwitterSection tweets={tweets} />
         </Box>
       </Container>
     </Box>
@@ -66,24 +62,11 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const portfolios = await client.getList<PortfolioContent>({
     endpoint: "portfolio",
   });
-  const twitterUser: UserV2Result = await roTwitterClient.v2.userByUsername(
-    "tmae94854943",
-    {
-      "user.fields": ["profile_image_url"],
-    }
-  );
-  const timeline: TweetUserTimelineV2Paginator =
-    await roTwitterClient.v2.userTimeline(twitterUser.data.id, {
-      max_results: 5,
-      "tweet.fields": ["created_at"],
-    });
 
   return {
     props: {
       blogs,
       portfolios,
-      tweets: timeline.tweets,
-      twitterUser: twitterUser.data,
     },
   };
 };

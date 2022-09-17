@@ -1,4 +1,3 @@
-import { TwitterApi } from "twitter-api-v2";
+import Client from "twitter-api-sdk";
 
-const client = new TwitterApi(process.env.BEARER_TOKEN);
-export const roTwitterClient = client.readOnly;
+export const twitterClient = new Client(process.env.BEARER_TOKEN);
