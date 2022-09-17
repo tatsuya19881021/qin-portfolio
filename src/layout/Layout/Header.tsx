@@ -1,4 +1,11 @@
-import { ActionIcon, Box, Container, Group, Text } from "@mantine/core";
+import {
+  ActionIcon,
+  Box,
+  Container,
+  Group,
+  Text,
+  useMantineColorScheme,
+} from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import { FC, useState } from "react";
 import { TbMenu2, TbMoon, TbSun } from "react-icons/tb";
@@ -15,7 +22,8 @@ const ITEMS = [
 export const Header: FC = () => {
   const largerThanSm = useMediaQuery("sm");
   const [opened, setOpened] = useState(false);
-  const dark = false;
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === "dark";
 
   const handleClick = (prevOpened: boolean) => {
     prevOpened ? setOpened(false) : setOpened(true);
@@ -77,6 +85,7 @@ export const Header: FC = () => {
             <ActionIcon
               variant="default"
               color={dark ? "yello" : "blue"}
+              onClick={() => toggleColorScheme()}
               title="Toggle color scheme"
               sx={{ "&:not(:disabled):active": { transform: "none" } }}
             >

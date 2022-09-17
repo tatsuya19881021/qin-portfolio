@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys-custom-order/object-keys */
 const mantineColors = {
   m_dark: {
     0: "#C1C2C5",
