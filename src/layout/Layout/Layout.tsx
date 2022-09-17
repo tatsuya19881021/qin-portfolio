@@ -1,6 +1,6 @@
+import { Box } from "@mantine/core";
 import type { CustomLayout } from "next";
 import dynamic from "next/dynamic";
-import { Box } from "@mantine/core";
 import { LayoutErrorBoundary } from "src/layout/LayoutErrorBoundary";
 
 const Header = dynamic(async () => {

@@ -13,14 +13,14 @@ import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import axios from "axios";
 import type { CustomNextPage } from "next";
-import { Layout } from "src/layout";
 import { TbCheck, TbX } from "react-icons/tb";
+import { Layout } from "src/layout";
 
 const Contact: CustomNextPage = () => {
   const form = useForm({
     initialValues: {
-      email: "",
       name: "",
+      email: "",
       message: "",
     },
 
@@ -33,11 +33,11 @@ const Contact: CustomNextPage = () => {
     try {
       showNotification({
         id: "send-message",
-        loading: true,
         title: "送信中",
-        message: "メッセージを送信しています。",
         autoClose: false,
         disallowClose: true,
+        loading: true,
+        message: "メッセージを送信しています。",
       });
       await axios.post("/api/contact", JSON.stringify(values), {
         headers: {
@@ -47,22 +47,22 @@ const Contact: CustomNextPage = () => {
       form.reset();
       updateNotification({
         id: "send-message",
-        color: "teal",
         title: "送信完了",
-        message: "メッセージの送信が完了しました！",
-        icon: <TbCheck size={16} />,
         autoClose: 5000,
+        color: "teal",
+        icon: <TbCheck size={16} />,
+        message: "メッセージの送信が完了しました！",
       });
     } catch (err) {
       updateNotification({
         id: "send-message",
-        loading: false,
-        color: "red",
         title: "送信失敗",
-        message: "メッセージの送信が失敗しました。",
-        icon: <TbX size={16} />,
         autoClose: 5000,
+        color: "red",
         disallowClose: true,
+        icon: <TbX size={16} />,
+        loading: false,
+        message: "メッセージの送信が失敗しました。",
       });
       console.log(err);
     }

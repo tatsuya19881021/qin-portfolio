@@ -14,11 +14,11 @@ import { useMediaQuery } from "src/lib/mantine";
 import { TweetV2, UserV2 } from "twitter-api-v2";
 
 type Props = {
-  twitterUser: UserV2;
   tweets: TweetV2[];
+  twitterUser: UserV2;
 };
 
-export const TwitterSection: FC<Props> = ({ twitterUser, tweets }) => {
+export const TwitterSection: FC<Props> = ({ tweets, twitterUser }) => {
   const largerThanSm = useMediaQuery("sm");
 
   return (

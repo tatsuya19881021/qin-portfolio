@@ -1,17 +1,17 @@
-import { FC } from "react";
+import { Burger, Drawer, Stack, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
-import { Text, Drawer, Stack, Burger } from "@mantine/core";
+import { FC } from "react";
 
 type Props = {
   items: {
     href: string;
     text: string;
   }[];
-  opened: boolean;
   onClick: () => void;
+  opened: boolean;
 };
 
-export const HeaderMenu: FC<Props> = ({ items, opened, onClick }) => {
+export const HeaderMenu: FC<Props> = ({ items, onClick, opened }) => {
   return (
     <Drawer
       opened={opened}

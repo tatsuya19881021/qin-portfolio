@@ -1,8 +1,9 @@
 import "src/lib/tailwind.css";
-import type { CustomAppPage } from "next/app";
-import Head from "next/head";
+
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
+import type { CustomAppPage } from "next/app";
+import Head from "next/head";
 
 const App: CustomAppPage = ({ Component, pageProps }) => {
   const getLayout =

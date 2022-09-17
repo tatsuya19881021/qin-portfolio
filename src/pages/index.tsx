@@ -1,17 +1,17 @@
 import { Box, Container } from "@mantine/core";
+import { MicroCMSListResponse } from "microcms-js-sdk";
 import type { CustomNextPage, GetStaticProps } from "next";
-import { Layout } from "src/layout";
-import { TitleSection } from "src/component/Home";
 import { BlogSection } from "src/component/Blog/BlogSection";
-import { PortfolioSection } from "src/component/Portfolio";
+import { CenterButton } from "src/component/common";
 import { GithubSection } from "src/component/Github";
+import { TitleSection } from "src/component/Home";
+import { PortfolioSection } from "src/component/Portfolio";
 import { TwitterSection } from "src/component/Twitter";
+import { Layout } from "src/layout";
 import { useMediaQuery } from "src/lib/mantine";
 import { client } from "src/lib/microcms/client";
-import { BlogContent, PortfolioContent } from "src/type/microcms";
-import { MicroCMSListResponse } from "microcms-js-sdk";
-import { CenterButton } from "src/component/common";
 import { roTwitterClient } from "src/lib/twitter/client";
+import { BlogContent, PortfolioContent } from "src/type/microcms";
 import {
   TweetUserTimelineV2Paginator,
   TweetV2,
@@ -22,15 +22,15 @@ import {
 type Props = {
   blogs: MicroCMSListResponse<BlogContent>;
   portfolios: MicroCMSListResponse<PortfolioContent>;
-  twitterUser: UserV2;
   tweets: TweetV2[];
+  twitterUser: UserV2;
 };
 
 const Home: CustomNextPage<Props> = ({
   blogs,
   portfolios,
-  twitterUser,
   tweets,
+  twitterUser,
 }) => {
   const largerThanSm = useMediaQuery("sm");
 
@@ -74,16 +74,16 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   );
   const timeline: TweetUserTimelineV2Paginator =
     await roTwitterClient.v2.userTimeline(twitterUser.data.id, {
-      "tweet.fields": ["created_at"],
       max_results: 5,
+      "tweet.fields": ["created_at"],
     });
 
   return {
     props: {
       blogs,
       portfolios,
-      twitterUser: twitterUser.data,
       tweets: timeline.tweets,
+      twitterUser: twitterUser.data,
     },
   };
 };

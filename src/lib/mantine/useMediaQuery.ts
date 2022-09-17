@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys-custom-order/object-keys */
 import { useMediaQuery as useMediaQueryOriginal } from "@mantine/hooks";
 
 const map = {
