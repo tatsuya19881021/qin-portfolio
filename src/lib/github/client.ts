@@ -21,7 +21,7 @@ export const FETCH_GIT_USERS = gql`
   query {
     user(login: "tatsuya19881021") {
       login
-      repositories(last: 10) {
+      repositories(last: 5) {
         edges {
           node {
             id
@@ -29,7 +29,7 @@ export const FETCH_GIT_USERS = gql`
             description
             stargazerCount
             forkCount
-            languages(last: 10) {
+            languages(last: 3) {
               edges {
                 node {
                   id
