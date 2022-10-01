@@ -98,8 +98,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     },
   };
 
-  // console.log(github.user.repositories.edges.map((edge) => edge.node.id));
-
   return {
     props: {
       blogs,
