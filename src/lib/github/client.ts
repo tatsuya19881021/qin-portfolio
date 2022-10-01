@@ -7,7 +7,7 @@ import {
 
 const link = createHttpLink({
   headers: {
-    authorizattion: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
+    authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
   },
   uri: "https://api.github.com/graphql",
 });
@@ -24,6 +24,7 @@ export const FETCH_GIT_USERS = gql`
       repositories(last: 10) {
         edges {
           node {
+            id
             name
             description
             stargazerCount
@@ -31,6 +32,7 @@ export const FETCH_GIT_USERS = gql`
             languages(last: 10) {
               edges {
                 node {
+                  id
                   color
                   name
                 }

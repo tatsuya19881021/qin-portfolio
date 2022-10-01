@@ -1,6 +1,5 @@
 import "src/lib/tailwind.css";
 
-import { ApolloProvider } from "@apollo/client";
 import {
   ColorScheme,
   ColorSchemeProvider,
@@ -10,7 +9,6 @@ import { useLocalStorage } from "@mantine/hooks";
 import { NotificationsProvider } from "@mantine/notifications";
 import type { CustomAppPage } from "next/app";
 import Head from "next/head";
-import { githubClient } from "src/lib/github/client";
 
 const App: CustomAppPage = ({ Component, pageProps }) => {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -48,9 +46,7 @@ const App: CustomAppPage = ({ Component, pageProps }) => {
           withNormalizeCSS
         >
           <NotificationsProvider position="top-center">
-            <ApolloProvider client={githubClient}>
-              {getLayout(<Component {...pageProps} />)}
-            </ApolloProvider>
+            {getLayout(<Component {...pageProps} />)}
           </NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
