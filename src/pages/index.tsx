@@ -63,6 +63,12 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     endpoint: "portfolio",
   });
 
+  // const { data: { users } = {} } = await githubClient.query({
+  //   query: FETCH_GIT_USERS,
+  // });
+
+  // console.log(users);
+
   return {
     props: {
       blogs,
