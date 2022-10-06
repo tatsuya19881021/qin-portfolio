@@ -17,9 +17,11 @@ export const githubClient = new ApolloClient({
   link: link,
 });
 
+const githubUserId = process.env.GITHUB_USER_ID;
+
 export const FETCH_GIT_USERS = gql`
   query {
-    user(login: "tatsuya19881021") {
+    user(login: "${githubUserId}") {
       login
       repositories(last: 5) {
         edges {

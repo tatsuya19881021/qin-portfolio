@@ -29,21 +29,23 @@ export type GithubResponse = {
   };
 };
 
+export type GithubRepositoryContent = {
+  id: string;
+  name: string;
+  description: string;
+  forkCount: number;
+  languages: {
+    id: string;
+    name: string;
+    color: string;
+    value: number;
+  }[];
+  stargazerCount: number;
+};
+
 export type GithubContent = {
   user: {
     login: string;
-    repositories: {
-      id: string;
-      name: string;
-      description: string;
-      forkCount: number;
-      languages: {
-        id: string;
-        name: string;
-        color: string;
-        value: number;
-      }[];
-      stargazerCount: number;
-    }[];
+    repositories: GithubRepositoryContent[];
   };
 };
