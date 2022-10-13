@@ -9,14 +9,17 @@ import { TitleSection } from "src/component/Home";
 import { PortfolioSection } from "src/component/Portfolio";
 import { TwitterSection } from "src/component/Twitter";
 import { Layout } from "src/layout";
+import { FETCH_GIT_USERS, githubClient } from "src/lib/github/client";
 import { useMediaQuery } from "src/lib/mantine";
 import { client } from "src/lib/microcms/client";
+import { GithubContent, GithubResponse } from "src/type/github";
 import { BlogContent, PortfolioContent } from "src/type/microcms";
 import { TwitterContents } from "src/type/twitter";
 import useSWR from "swr";
 
 type Props = {
   blogs: MicroCMSListResponse<BlogContent>;
+  github: GithubContent;
   portfolios: MicroCMSListResponse<PortfolioContent>;
 };
 
@@ -25,7 +28,7 @@ const fetchTwitter = async (url: string): Promise<TwitterContents> => {
   return response.data;
 };
 
-const Home: CustomNextPage<Props> = ({ blogs, portfolios }) => {
+const Home: CustomNextPage<Props> = ({ blogs, github, portfolios }) => {
   const largerThanSm = useMediaQuery("sm");
   const response = useSWR("/api/tweet", fetchTwitter);
   const tweets = response.data ?? [];
@@ -44,7 +47,7 @@ const Home: CustomNextPage<Props> = ({ blogs, portfolios }) => {
             largerThanSm ? "flex justify-between space-x-10" : undefined
           }
         >
-          <GithubSection />
+          <GithubSection github={github} />
           <TwitterSection tweets={tweets} />
         </Box>
       </Container>
@@ -63,9 +66,42 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     endpoint: "portfolio",
   });
 
+  const { data: resultGithub } = await githubClient.query<GithubResponse>({
+    query: FETCH_GIT_USERS,
+  });
+  const github = {
+    user: {
+      login: resultGithub?.user.login,
+      repositories: resultGithub?.user.repositories.edges.map((edge) => {
+        const total = edge.node.languages.edges.reduce(
+          (sum, element) => sum + element.size,
+          0
+        );
+        const languages = edge.node.languages.edges.map((language) => {
+          return {
+            id: language.node.id,
+            name: language.node.name,
+            color: language.node.color,
+            value: Number(((language.size / total) * 100).toFixed(1)),
+          };
+        });
+
+        return {
+          id: edge.node.id,
+          name: edge.node.name,
+          description: edge.node.description,
+          forkCount: edge.node.forkCount,
+          languages,
+          stargazerCount: edge.node.stargazerCount,
+        };
+      }),
+    },
+  };
+
   return {
     props: {
       blogs,
+      github,
       portfolios,
     },
   };
